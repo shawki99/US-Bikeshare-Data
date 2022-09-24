@@ -158,6 +158,22 @@ def trip_duration_stats(df):
     print('-'*40)
 
 
+
+def display_raw_data(df):
+    """Displays raw data on user request.
+    Args:
+        (DataFrame) df - Pandas DataFrame containing city data filtered by month and day
+    """
+    print(df.head())
+    next = 0
+    while True:
+        view_raw_data = input('\nWould you want to view next five row of the data? Enter yes or no.\n')
+        if view_raw_data.lower() != 'yes':
+            return
+        next = next + 5
+        print(df.iloc[next:next+5])
+
+
 def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
@@ -198,6 +214,13 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df,city)
+
+        while True:
+            view_raw_data = input('\nWould you want to see the first five row of the data? Enter yes or no.\n')
+            if view_raw_data.lower() != 'yes':
+                break
+            display_raw_data(df)
+            break
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
